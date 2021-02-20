@@ -8,7 +8,7 @@ enter into cloned project
 Run below command and it will install all required packages from package.json:
 **npm install**
 
-Now you can run npm start nn the project directory:
+Now you can run npm start in the project directory:
 **npm start**
 
 Runs the app in the development mode.
