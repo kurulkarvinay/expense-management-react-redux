@@ -1,6 +1,8 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const input = ( props ) => {
 	let inputElement = null;
@@ -18,17 +20,23 @@ const input = ( props ) => {
 			onChange={props.changed} />;
 			break;
 		case('select') :
-			inputElement = 
-				<Select
-					native
-					onChange={props.changed}
-					value={props.value}>
-						{props.elementConfig.options.map(option => (
-							<option key={option.value} selected={props.value === option.displayValue} value={option.value}>
-								{option.displayValue}
+			inputElement =
+				<FormControl>
+					<InputLabel id="demo-simple-select-label">{props.name}</InputLabel>
+					<Select
+						native
+          	id="demo-simple-select"
+						onChange={props.changed}
+						value={props.value}>
+							<option value="none">
 							</option>
-						))}
-				</Select>;
+							{props.elementConfig.options.map(option => (
+								<option key={option.value} defaultValue={props.value === option.displayValue} value={option.value}>
+									{option.displayValue}
+								</option>
+							))}
+					</Select>
+				</FormControl>;
 				break;
 		default:
 			return true;

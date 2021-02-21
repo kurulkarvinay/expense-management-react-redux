@@ -198,6 +198,7 @@ class AddExpense extends Component {
 				{formElementsArray.map(formElement => (
 					<Input 
 						key={formElement.id}
+						name={formElement.id}
 						elementType={formElement.config.elementType} 
 						elementConfig={formElement.config.elementConfig}
 						inValid={!formElement.config.valid}

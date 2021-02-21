@@ -126,7 +126,6 @@ class EditDialog extends Component{
 		for( let formElementKey in this.state.expenseForm ) {
 			formData[formElementKey] = this.state.expenseForm[formElementKey].value;
 		}
-		console.log('updated'+JSON.stringify(formData));
 		store.dispatch({
 			type: UPDATE_EXPENSE,
 			payload: {
