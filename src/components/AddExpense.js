@@ -63,7 +63,7 @@ class AddExpense extends Component {
 						{value: 'Cash', displayValue: 'Cash'},
 						{value: 'GPay', displayValue: 'GPay'},
 						{value: 'Debit Card', displayValue: 'Debit Card'},
-						{value: 'Ceredit Card', displayValue: 'Ceredit Card'}
+						{value: 'Credit Card', displayValue: 'Credit Card'}
 					]
 				},
 				value: '',
@@ -78,7 +78,7 @@ class AddExpense extends Component {
 					id: 'date',
 					type: 'date'
 				},
-				value: new Date().toLocaleDateString(),
+				value: '',
 				validation: {
 					required: true
 				},
@@ -123,7 +123,7 @@ class AddExpense extends Component {
 			...this.state,
 			formIsValid: false
 		})
-	  
+		
 		store.dispatch({
 			type: CLOSE_FORM
 		});
@@ -174,13 +174,13 @@ class AddExpense extends Component {
 
 	componentDidMount() {
 		this.setState({
-		  open: store.getState()["uiState"]["openFormDialog"]
+			open: store.getState()["uiState"]["openFormDialog"]
 		});
 	
 		store.subscribe(() => {
-		  this.setState({
+			this.setState({
 				open: store.getState()["uiState"]["openFormDialog"],
-		  });
+			});
 		});
 	}
 

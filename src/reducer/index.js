@@ -5,13 +5,14 @@ import { OPEN_FORM } from "../constants/action-types";
 import { CLOSE_FORM } from "../constants/action-types";
 import { OPEN_EDIT_FORM } from "../constants/action-types";
 import { CLOSE_EDIT_FORM } from "../constants/action-types";
+
 const initialState = {
   expenses: [
     {
       id: 0,
       title: "Notebook",
       amount: 50,
-      category: "Misc",
+      category: "School",
       paymentMode: "GPay",
       date: "July 20, 2014"
     },
@@ -19,7 +20,7 @@ const initialState = {
       id: 1,
       title: "Pen",
       amount: 90,
-      category: "Misc",
+      category: "School",
       paymentMode: "Credit Card",
       date: "Jan 7, 2014"
     }
@@ -77,7 +78,14 @@ const rootReducer = (state = initialState, action) => {
           if (expense.id !== action.payload.id) {
             return expense;
           } else {
-            return { ...expense, title: action.payload.title };
+            return { 
+              ...expense, 
+              title: action.payload.title,
+              amount: action.payload.amount,
+              category: action.payload.category,
+              paymentMode: action.payload.paymentMode,
+              date: action.payload.date
+            };
           }
         })
       };
@@ -104,7 +112,7 @@ const rootReducer = (state = initialState, action) => {
      * Delete Expense
      */
     case DELETE_EXPENSE:
-      const selectedItem = state.expenses.find((item, ind) => ind === action.payload);
+      const selectedItem = state.expenses.find((item) => item.id === action.payload);
       state.expenses.splice(selectedItem.id, 1);
       return state;
 

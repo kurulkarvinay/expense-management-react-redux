@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import store from "../store/index";
-import { OPEN_FORM, DELETE_EXPENSE } from "../constants/action-types";
+import { OPEN_FORM } from "../constants/action-types";
 import Button from "@material-ui/core/Button";
 
 class SimpleAppBar extends Component {
@@ -14,12 +14,6 @@ class SimpleAppBar extends Component {
 	openDialog = () => {
 		store.dispatch({
 			type: OPEN_FORM
-		});
-	};
-
-	handleDelete = () => {
-		store.dispatch({
-			type: DELETE_EXPENSE
 		});
 	};
 

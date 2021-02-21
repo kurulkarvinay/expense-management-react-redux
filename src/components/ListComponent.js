@@ -5,7 +5,7 @@ import store from "../store/index";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/Delete";
 import CommentIcon from "@material-ui/icons/Edit";
-import { OPEN_EDIT_FORM, SELECT_EXPENSE, DELETE_EXPENSE } from "../constants/action-types";
+import { OPEN_EDIT_FORM, DELETE_EXPENSE } from "../constants/action-types";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -30,6 +30,18 @@ class ListComponent extends Component {
 		checked: [],
 		items: []
 	};
+	
+	componentDidMount() {
+		this.setState({
+			items: store.getState()["expenses"]
+		});
+
+		store.subscribe(() => {
+			this.setState({
+				items: store.getState()["expenses"]
+			});
+		});
+	}
 
 	openEditDialog = value => {
 		store.dispatch({
@@ -37,20 +49,6 @@ class ListComponent extends Component {
 			payload: value
 		});
 	};
-
-	componentDidMount() {
-		this.setState({
-			items: store.getState()["expenses"],
-			checked: store.getState()["uiState"]["checked"]
-		});
-
-		store.subscribe(() => {
-			this.setState({
-				items: store.getState()["expenses"],
-				checked: store.getState()["uiState"]["checked"]
-			});
-		});
-	}
 
 	handleDelete = (value) => {
 		store.dispatch({
@@ -60,36 +58,36 @@ class ListComponent extends Component {
 	};
 
 	getFormattedDate = (strDate) => {
-		const event = new Date(strDate);
-		return event.toDateString("MM DD YYYY");
+		const date = new Date(strDate);
+		return date.toDateString();
 	}
 
 	renderMetadata = (data) => {
 		const metaData = (data.map(value => (
-				<TableRow key={value.id}>
-					<TableCell component="th" scope="row">
-						<IconButton onClick={() => this.handleDelete(value.id)} color="inherit" style={{
-							left: 40
-						}}>
-						<AccountCircle />
-						</IconButton>
-					</TableCell>
-					<TableCell align="right">
-						{(this.getFormattedDate(value.date))}
-					</TableCell>
-					<TableCell align="right">{value.title}</TableCell>
-					<TableCell align="right">{value.category}</TableCell>
-					<TableCell align="right">${value.amount}</TableCell>
-					<TableCell align="right">{value.paymentMode}</TableCell>
-					{/* <TableCell>
-						<IconButton
-							aria-label="Comments"
-							onClick={() => this.openEditDialog(value)}
-						>
-							<CommentIcon />
-						</IconButton>
-					</TableCell> */}
-				</TableRow>
+			<TableRow key={value.id}>
+				<TableCell component="th" scope="row">
+					<IconButton onClick={() => this.handleDelete(value.id)} color="inherit" style={{
+						left: 40
+					}}>
+					<AccountCircle />
+					</IconButton>
+				</TableCell>
+				<TableCell align="right">
+					{(this.getFormattedDate(value.date))}
+				</TableCell>
+				<TableCell align="right">{value.title}</TableCell>
+				<TableCell align="right">{value.category}</TableCell>
+				<TableCell align="right">${value.amount}</TableCell>
+				<TableCell align="right">{value.paymentMode}</TableCell>
+				<TableCell>
+					<IconButton
+						aria-label="Comments"
+						onClick={() => this.openEditDialog(value)}
+					>
+						<CommentIcon />
+					</IconButton>
+				</TableCell>
+			</TableRow>
 			)))
 
 		return metaData;
@@ -108,7 +106,7 @@ class ListComponent extends Component {
 							<TableCell align="right">Expense Category</TableCell>
 							<TableCell align="right">Amount</TableCell>
 							<TableCell align="right">Payment Mode</TableCell>
-							{/* <TableCell align="right">Edit Action</TableCell> */}
+							<TableCell align="right">Edit Action</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
