@@ -1,6 +1,6 @@
 {
   "name": "expense-management",
-  "version": "1.0.0",
+  "version": "v1.0",
   "description": "Expense Management using redux and reactjs",
   "keywords": [
     "react",
